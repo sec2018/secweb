@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "error")
-public class ErrorBaseeController implements ErrorController {
+public class ErrorBaseController implements ErrorController {
  
-    private static final Logger log = LoggerFactory.getLogger(ErrorBaseeController.class);
+    private static final Logger log = LoggerFactory.getLogger(ErrorBaseController.class);
     @Override
     public String getErrorPath() {
-        log.info("出错了进入自定义错误控制器");
+//        log.info("出错了进入自定义错误控制器");
         return "error/error-404";
     }
  
