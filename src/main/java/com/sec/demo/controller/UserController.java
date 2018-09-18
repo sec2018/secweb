@@ -25,8 +25,7 @@ public class UserController {
             password = AESUtil.encryptData(password);
             UsernamePasswordToken token = new UsernamePasswordToken(username,password);
             subject.login(token);//验证角色和权限
-            if (!subject.isAuthenticated()){
-                //使用shiro来验证
+            if (subject.isAuthenticated()){
                 token.setRememberMe(true);
                 System.out.println(username+" success login");
             }
