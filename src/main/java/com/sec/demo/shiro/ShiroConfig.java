@@ -39,6 +39,7 @@ public class ShiroConfig {
         //开放登陆接口
         filterChainDefinitionMap.put("/templates/*", "anon");
         filterChainDefinitionMap.put("/sublogin", "anon");
+        filterChainDefinitionMap.put("/api/**", "anon");
         //其余接口一律拦截
         //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
         filterChainDefinitionMap.put("/**", "authc");
