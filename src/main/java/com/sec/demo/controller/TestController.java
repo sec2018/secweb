@@ -1,5 +1,8 @@
 package com.sec.demo.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 import com.sec.demo.pojo.Equipmenttype;
@@ -66,11 +69,21 @@ public class TestController {
     	System.out.println(redisService.get("wang:phone"));
     }
 
-    @Test
+
     @Transactional
     public void testRepository(){
         Equipmenttype equipmenttype = equipmenttypeService.findById(1);
         System.out.println(equipmenttype.toString());
     }
 
+    @Test
+    public void testRuntime(){
+        Runtime r = Runtime.getRuntime();
+        Process p = null;
+        try{
+            p = r.exec("notepad");
+        } catch (Exception e) {
+            System.out.println("Error executing notepad.");
+        }
+    }
 }
