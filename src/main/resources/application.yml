@@ -45,7 +45,16 @@ spring:
         #nodes:
         #127.0.0.1:26379,127.0.0.1:26479,127.0.0.1:26579 #哨兵的配置列表
       timeout: 2000 #连接超时时间（毫秒）
-
+    jpa:
+        database: mysql
+        show-sql: true
+      #Hibernate ddl auto (validate|create|create-drop|update)
+        hibernate:
+          ddl-auto: update
+          naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.MySQL5Dialect
 
 logging:
   #配置日志文件路径

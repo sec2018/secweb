@@ -2,7 +2,9 @@ package com.sec.demo.controller;
 
 import java.util.concurrent.TimeUnit;
 
+import com.sec.demo.pojo.Equipmenttype;
 import com.sec.demo.pojo.User;
+import com.sec.demo.service.EquipmenttypeService;
 import com.sec.demo.util.redis.RedisService;
 import com.sec.demo.service.UserService;
 import org.junit.Assert;
@@ -16,6 +18,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 
 @SpringBootTest
@@ -32,6 +36,9 @@ public class TestController {
 	
 	@Autowired
     private RedisService redisService;
+
+	@Resource
+    private EquipmenttypeService equipmenttypeService;
    
     public void set(){
         redisTemplate.opsForValue().set("key1","testValue1");
@@ -52,10 +59,18 @@ public class TestController {
        // 放入缓存，并设置缓存时间
        redisTemplate.opsForValue().set("User:chen", user2, 600, TimeUnit.SECONDS);
     }
-    
-    @Test
+
+
     public void testRedisService() {
     	redisService.set("wang:phone", "15221275860");
     	System.out.println(redisService.get("wang:phone"));
     }
+
+    @Test
+    @Transactional
+    public void testRepository(){
+        Equipmenttype equipmenttype = equipmenttypeService.findById(1);
+        System.out.println(equipmenttype.toString());
+    }
+
 }
