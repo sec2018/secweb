@@ -31,7 +31,7 @@ spring:
         enabled: true
     redis:
       database: 1 #索引（默认为0）
-      host: 10.84.1.223 #地址
+      host: 122.112.252.45 #地址
       port: 6379 #端口号
       password: 123456 #连接密码（默认空）
       jedis:
@@ -55,15 +55,33 @@ spring:
         properties:
           hibernate:
             dialect: org.hibernate.dialect.MySQL5Dialect
+    data:
+      mongodb:
+#        host: 122.112.252.45
+#        username: wang
+#        password: 123456
+#        port: 27017
+#        database: test
+        uri: mongodb://wang:123456@122.112.252.45:27017/test
 
+    activemq:
+      broker-url: tcp://122.112.252.45:61616
+      in-memory: false
+      pool:
+        enabled: false
+      packages:
+        trust-all: true
+
+#logging:
+#  #配置日志文件路径
+#  level:
+#    com.sec.demo: info #不同目录下的日志可配置不同级别
+#    org.springfromework.web: warn
+#    org.hibernate: error
+#  #采用相对路径方式将日志文件输出到【log\myspringboot.log】
+#  file: log\myspringboot.log
 logging:
-  #配置日志文件路径
-  level:
-    com.sec.demo: info #不同目录下的日志可配置不同级别
-    org.springfromework.web: warn
-    org.hibernate: error
-  #采用相对路径方式将日志文件输出到【log\myspringboot.log】
-  file: log\myspringboot.log
+  config: classpath:log4j2.xml
   
    
 #这个插件是mybatis的分页查询
@@ -72,3 +90,5 @@ pagehelper:
    reasonable: true
    supportMethodsArguments: true
    params: count=countSql
+
+

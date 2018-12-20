@@ -3,14 +3,19 @@ package com.sec.demo.pojo;
 
 import org.springframework.data.annotation.Id;
 
-import java.io.Serializable;
+public class UserMongo {
+    private static final long serialVersionUID = -1L;
 
-/**
- * Created by WangZJ on 2018/7/22.
- */
-public class User implements Serializable{
-	private static final long serialVersionUID = -1L;
+    @Override
+    public String toString() {
+        return "UserMongo{" +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 
+    @Id
     private Integer uid;
 
     public Integer getUid() {
@@ -29,7 +34,7 @@ public class User implements Serializable{
         this.username = username;
     }
 
-	public String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -39,9 +44,4 @@ public class User implements Serializable{
 
     private String username;
     private String password;
-    @Override
-	public String toString() {
-		return "User [uid=" + uid + ", username=" + username + ", password=" + password + "]";
-	}
-    
 }

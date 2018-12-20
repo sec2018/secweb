@@ -1,12 +1,11 @@
 package com.sec.demo.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.sec.demo.pojo.Equipmenttype;
 import com.sec.demo.pojo.User;
+import com.sec.demo.pojo.UserMongo;
 import com.sec.demo.service.EquipmenttypeService;
 import com.sec.demo.util.redis.RedisService;
 import com.sec.demo.service.UserService;
@@ -17,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -42,6 +44,9 @@ public class TestController {
 
 	@Resource
     private EquipmenttypeService equipmenttypeService;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
    
     public void set(){
         redisTemplate.opsForValue().set("key1","testValue1");
@@ -76,7 +81,7 @@ public class TestController {
         System.out.println(equipmenttype.toString());
     }
 
-    @Test
+
     public void testRuntime(){
         Runtime r = Runtime.getRuntime();
         Process p = null;
@@ -85,5 +90,28 @@ public class TestController {
         } catch (Exception e) {
             System.out.println("Error executing notepad.");
         }
+    }
+
+    @Test
+    public void testMongoDb() throws Exception{
+//        Query query=new Query(Criteria.where("username").is("rfsfd"));
+//        UserMongo mgt =  mongoTemplate.findOne(query , UserMongo.class);
+//        System.out.println(mgt.toString());
+
+        UserMongo user1 = new UserMongo();
+        user1.setUid(2);
+        user1.setUsername("Tseng");
+        user1.setPassword("sssss");
+        UserMongo user2 = new UserMongo();
+        user2.setUid(3);
+        user2.setUsername("rfsfd");
+        user2.setPassword("frgrr");
+        mongoTemplate.save(user1);
+        mongoTemplate.save(user2);
+        Query query = new Query();
+        Criteria criteria=Criteria.where("username").is("rfsfd");
+        query.addCriteria(criteria);
+        List<UserMongo> userList = mongoTemplate.find(query,UserMongo.class);
+        System.out.println(userList.toArray()[0].toString());
     }
 }
