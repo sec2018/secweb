@@ -23,7 +23,7 @@ public class ScheduleTask {
     private MessageMq messageMq;
 
 //    @Scheduled(cron = "*/1 * * * * *")
-    @Scheduled(fixedRate = 50)
+//    @Scheduled(fixedRate = 50)
     public void produceMq(){
         count++;
         String message = new Date().toLocaleString()+"    "+"您发送的第"+count+"条消息------------------------->>>>";
