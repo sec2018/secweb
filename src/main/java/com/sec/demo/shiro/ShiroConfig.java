@@ -37,7 +37,8 @@ public class ShiroConfig {
         //管理员，需要角色权限 “admin”
 //        filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //开放登陆接口
-        filterChainDefinitionMap.put("/templates/*", "anon");
+//        filterChainDefinitionMap.put("/templates/*", "anon");
+        filterChainDefinitionMap.put("/vedio.html", "anon");
         filterChainDefinitionMap.put("/sublogin", "anon");
         filterChainDefinitionMap.put("/api/**", "anon");
         //其余接口一律拦截

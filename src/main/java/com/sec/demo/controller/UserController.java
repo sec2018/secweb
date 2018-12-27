@@ -39,7 +39,7 @@ public class UserController {
     @RequestMapping(value = "/test")
     @ResponseBody
     public String Test(){
-    	System.out.println(10/0);
+    	System.out.println(10/1);
         return "okkkk！";
     }
 
@@ -50,5 +50,11 @@ public class UserController {
         subject.logout();
         System.out.println("logout...");
         return "logout！";
+    }
+
+
+    @RequestMapping(value = "/index")
+    public String index(){
+        return "index";
     }
 }
