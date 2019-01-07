@@ -2,8 +2,11 @@ package com.sec.demo.config;
 
 
 
+import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,5 +39,10 @@ public class ErrorExceptionHandle {
         m.setViewName("error/error-500");
         return m;
     }
- 
+
+
+    @ExceptionHandler(value = AuthorizationException.class)
+    public String handleAuthorizationException() {
+        return "error/error-403";
+    }
 }
