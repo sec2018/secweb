@@ -22,12 +22,21 @@ public class ScheduleTask {
     @Resource
     private MessageMq messageMq;
 
-//    @Scheduled(cron = "*/1 * * * * *")
-//    @Scheduled(fixedRate = 50)
+    @Scheduled(cron = "*/1 * * * * *")
+//    @Scheduled(fixedRate = 1000)
     public void produceMq(){
+
         count++;
-        String message = new Date().toLocaleString()+"    "+"您发送的第"+count+"条消息------------------------->>>>";
+        String messagecount = new Date().toLocaleString()+"    "+"您发送的第"+count+"条消息------------------------->>>>";
+        //读取csv文件
+        String srcPath = "C:\\Users\\03010347\\Desktop\\各类项目问题\\太仓项目\\齿轮箱低速轴_垂直径向_25600Hz_加速度_1200.5_20180716014519.csv";
+        String value = CommonUtil.readCSV(srcPath);
+
+//        Date date = CommonUtil.randomDate("2010-08-30", "2018-10-04");
+        String key = "齿轮箱低速轴2_垂直径向_25600Hz_加速度_1200.5_"+ CommonUtil.timedel(new Date());
+        String message = key + ":" + value;
         if(messageMq.asynSave(message)){
+            logger.info(messagecount);
             logger.info(message);
         }
     }

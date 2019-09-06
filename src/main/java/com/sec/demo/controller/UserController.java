@@ -4,6 +4,7 @@ import com.sec.demo.pojo.User;
 import com.sec.demo.util.AESUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/logout")
-    @ResponseBody
     public String logout(){
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
@@ -77,6 +77,29 @@ public class UserController {
     @RequestMapping("user/list")
     public String userList(Model model) {
         model.addAttribute("value", "获取用户信息");
+        return "user";
+    }
+
+
+//    // 表示当前Subject已经通过login进行了身份验证；即Subject.isAuthenticated()返回true。
+//    @RequiresAuthentication
+//
+//    // 表示当前Subject已经身份验证或者通过记住我登录的。
+//    @RequiresUser
+//
+//    // 表示当前Subject没有身份验证或通过记住我登录过，即是游客身份。
+//    @RequiresGuest
+//
+//    // 表示当前Subject需要角色admin和user。
+//    @RequiresRoles(value={"admin", "user"}, logical= Logical.AND)
+//
+//    // 表示当前Subject需要权限user:a或user:b。
+//    @RequiresPermissions (value={"user:a", "user:b"}, logical= Logical.OR)
+
+    @RequiresPermissions(value={"admin:add","user:user"},logical = Logical.OR)
+    @RequestMapping("user/seefilm")
+    public String seeFilm(Model model) {
+        model.addAttribute("value", "去看电影");
         return "user";
     }
 
